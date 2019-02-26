@@ -11,9 +11,7 @@ class UsersController extends Controller
 {
     public function index(Request $request)
     {
-        if ($request->has('include')){
-            $includes = explode(',',$request->get('include'));
-        }
+        $includes = explode(',',$request->get('include',''));
         /** @var Collection $users */
         $users = User::with((isset($includes) ? $includes: []))->get();
         return $this->responseJSON(new UsersResource($users));
@@ -21,9 +19,7 @@ class UsersController extends Controller
 
     public function show(Request $request ,$id)
     {
-        if ($request->has('include')){
-            $includes = explode(',',$request->get('include'));
-        }
+        $includes = explode(',',$request->get('include',''));
         /** @var User $user */
         $user = User::with((isset($includes) ? $includes: []))->find($id);
         if ($user == null) return $this->return404('User');

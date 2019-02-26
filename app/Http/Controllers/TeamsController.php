@@ -11,9 +11,7 @@ class TeamsController extends Controller
 {
     public function index(Request $request)
     {
-        if ($request->has('include')){
-            $includes = explode(',',$request->get('include'));
-        }
+        $includes = explode(',',$request->get('include',''));
         /** @var Collection $teams */
         $teams = Team::with((isset($includes) ? $includes: []))->get();
         return $this->responseJSON(new TeamsResource($teams));
@@ -21,9 +19,7 @@ class TeamsController extends Controller
 
     public function show(Request $request ,$id)
     {
-        if ($request->has('include')){
-            $includes = explode(',',$request->get('include'));
-        }
+        $includes = explode(',',$request->get('include',''));
         /** @var Team $team */
         $team = Team::with((isset($includes) ? $includes: []))->find($id);
         if ($team == null) return $this->return404('Team');
