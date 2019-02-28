@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Team extends Model
 {
     protected $fillable = [
-        'team', 'description'
+        'name', 'description'
     ];
 
     public function users()

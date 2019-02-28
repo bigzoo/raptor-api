@@ -31,10 +31,10 @@ abstract class Resource
     {
         return $resource->map(function ($instance){
             return $this->respondWithInstance($instance);
-        });
+        })->toArray();
     }
 
-    public function toArray()
+    public function toArray() : array
     {
         if ($this->resource instanceof Collection){
             return $this->respondWithCollection($this->resource);
